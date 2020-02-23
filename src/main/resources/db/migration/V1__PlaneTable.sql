@@ -1,0 +1,4 @@
+CREATE TABLE plane (
+    id UUID NOT NULL PRIMARY KEY,
+    registration VARCHAR(10) NOT NULL
+);
