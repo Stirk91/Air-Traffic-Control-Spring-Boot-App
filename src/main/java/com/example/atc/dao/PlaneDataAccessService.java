@@ -26,15 +26,15 @@ public class PlaneDataAccessService implements PlaneDao {
 
     @Override
     public List<Plane> selectAllPlanes() {
-        final String sql = "SELECT id, registration FROM plane";
+        final String sql = "SELECT plane_id, tail_number FROM plane";
 
         List<Plane> planes = jdbcTemplate.query(
                 // pass sql query as string
                 sql,
                 // row mapper (lambda)
                 (resultSet, i) -> {
-            UUID id = UUID.fromString(resultSet.getString("id"));
-            String registration = resultSet.getString("registration");
+            UUID id = UUID.fromString(resultSet.getString("plane_id"));
+            String registration = resultSet.getString("tail__number");
             return new Plane(id, registration);
         });
         return planes;
@@ -42,7 +42,7 @@ public class PlaneDataAccessService implements PlaneDao {
 
     @Override
     public Optional<Plane> selectPlaneById(UUID id) {
-        final String sql = "SELECT id, registration FROM plane WHERE id = ?";
+        final String sql = "SELECT plane_id, tail_number FROM plane WHERE plane_id = ?";
 
         Plane plane = jdbcTemplate.queryForObject(
                 // pass sql query as string
@@ -51,8 +51,8 @@ public class PlaneDataAccessService implements PlaneDao {
                 new Object[]{id},
                 // row mapper (lambda)
                 (resultSet, i) -> {
-            UUID planeId = UUID.fromString(resultSet.getString("id"));
-            String registration = resultSet.getString("registration");
+            UUID planeId = UUID.fromString(resultSet.getString("plane_id"));
+            String registration = resultSet.getString("tail__number");
             return new Plane(planeId, registration);
                 });
         return Optional.ofNullable(plane);

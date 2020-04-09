@@ -12,8 +12,10 @@ public class Plane {
     @NotBlank
     private final String registration;
 
-    public Plane(@JsonProperty("id") UUID id,
-                 @JsonProperty("registration") String registration) {
+
+
+    public Plane(@JsonProperty("plane_id") UUID id,
+                 @JsonProperty("tail__number") String registration) {
         this.id = id;
         this.registration = registration;
     }
