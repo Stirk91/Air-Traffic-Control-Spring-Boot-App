@@ -15,7 +15,15 @@ public class TempPlaneDataAccessService implements PlaneDao {
 
     @Override
     public int insertPlane(UUID id, Plane plane) {
-        database.add(new Plane(id, plane.getRegistration()));
+        database.add(new Plane(id,
+                plane.getTail_number(),
+                plane.getState(),
+                plane.getLast_action(),
+                plane.getDistance(),
+                plane.getAltitude(),
+                plane.getSpeed(),
+                plane.getHeading()
+                ));
         return 1;
     }
 
@@ -49,7 +57,15 @@ public class TempPlaneDataAccessService implements PlaneDao {
                 .map(plane -> {
                     int indexOfPlaneToUpdate = database.indexOf(plane);
                     if (indexOfPlaneToUpdate >= 0) {
-                        database.set(indexOfPlaneToUpdate, new Plane(id, planeUpdate.getRegistration()));
+                        database.set(indexOfPlaneToUpdate, new Plane(id,
+                                planeUpdate.getTail_number(),
+                                planeUpdate.getState(),
+                                planeUpdate.getLast_action(),
+                                planeUpdate.getDistance(),
+                                planeUpdate.getAltitude(),
+                                planeUpdate.getSpeed(),
+                                planeUpdate.getHeading()
+                        ));
                         return 1;
                     }
                     else {

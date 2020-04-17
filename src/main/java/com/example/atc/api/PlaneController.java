@@ -10,6 +10,7 @@ import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
+//http://localhost:8080/v1/plane
 @RequestMapping("v1/plane")
 @RestController
 public class PlaneController {

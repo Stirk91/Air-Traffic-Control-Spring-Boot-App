@@ -1,4 +1,4 @@
-CREATE TABLE plane (
+CREATE TABLE Plane (
     plane_id UUID NOT NULL,
     tail_number VARCHAR(10) NOT NULL,
     state       VARCHAR(10) NOT NULL,
@@ -64,4 +64,5 @@ CREATE TABLE Taxiway_Gate (
     FOREIGN KEY (taxiway_id) REFERENCES Taxiway (taxiway_id),
     FOREIGN KEY (gate_id) REFERENCES Gate (gate_id)
 );
+
 
