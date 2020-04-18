@@ -2,7 +2,7 @@ CREATE TABLE Plane (
     plane_id UUID NOT NULL,
     tail_number VARCHAR(10) NOT NULL,
     state       VARCHAR(10) NOT NULL,
-    last_action TIMESTAMP(0) NOT NULL DEFAULT now(),
+    last_action BIGINT NOT NULL,
     distance    INT,
     altitude    INT,
     speed       INT,

@@ -7,32 +7,28 @@ import java.util.UUID;
 
 public class Plane {
 
-    private final UUID id;
-
+    protected UUID id;
     @NotBlank
-    private final String tail_number;
+    protected String tail_number;
+    protected String state;
+    protected long last_action;
+    protected int distance;
+    protected int altitude;
+    protected int speed;
+    protected int heading;
 
-    private final String state;
-
-    private final String last_action;
-
-    private final int distance;
-
-    private final int altitude;
-
-    private final int speed;
-
-    private final int heading;
-
+    public Plane() {
+    }
 
     public Plane(@JsonProperty("plane_id") UUID id,
-                 @JsonProperty("tail__number") String tail_number,
+                 @JsonProperty("tail_number") String tail_number,
                  @JsonProperty("state") String state,
-                 @JsonProperty("last_action") String last_action,
+                 @JsonProperty("last_action") long last_action,
                  @JsonProperty("distance") int distance,
                  @JsonProperty("altitude") int altitude,
                  @JsonProperty("speed") int speed,
                  @JsonProperty("heading") int heading) {
+
 
         this.id = id;
         this.tail_number = tail_number;
@@ -53,10 +49,10 @@ public class Plane {
     }
 
     public String getState() {
-        return tail_number;
+        return state;
     }
 
-    public String getLast_action() {
+    public long getLast_action() {
         return last_action;
     }
 

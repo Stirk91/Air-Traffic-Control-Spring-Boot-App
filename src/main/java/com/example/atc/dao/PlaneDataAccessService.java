@@ -19,23 +19,25 @@ public class PlaneDataAccessService implements PlaneDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
+
     @Override
     public int insertPlane(UUID id, Plane plane) {
         final String sql = "INSERT INTO plane " +
                 "(plane_id, tail_number, state, last_action, distance, altitude, speed, heading)" +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-        int update = jdbcTemplate.update(
+        return jdbcTemplate.update(
                 sql,
                 id,
                 plane.getTail_number(),
                 plane.getState(),
                 plane.getLast_action(),
                 plane.getDistance(),
+                plane.getAltitude(),
                 plane.getSpeed(),
                 plane.getHeading()
         );
-        return 0;
     }
 
     @Override
@@ -50,7 +52,7 @@ public class PlaneDataAccessService implements PlaneDao {
             UUID id = UUID.fromString(resultSet.getString("plane_id"));
             String tail_number = resultSet.getString("tail_number");
             String state = resultSet.getString("state");
-            String last_action = resultSet.getString("last_action");
+            long last_action = resultSet.getLong("last_action");
             int distance = resultSet.getInt("distance");
             int altitude = resultSet.getInt("altitude");
             int speed = resultSet.getInt("speed");
@@ -74,7 +76,7 @@ public class PlaneDataAccessService implements PlaneDao {
             UUID planeId = UUID.fromString(resultSet.getString("plane_id"));
             String tail_number = resultSet.getString("tail_number");
             String state = resultSet.getString("state");
-            String last_action = resultSet.getString("last_action");
+            long last_action = resultSet.getLong("last_action");
             int distance = resultSet.getInt("distance");
             int altitude = resultSet.getInt("altitude");
             int speed = resultSet.getInt("speed");

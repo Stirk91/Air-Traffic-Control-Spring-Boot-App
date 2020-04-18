@@ -24,7 +24,7 @@ public class TempPlaneDataAccessService implements PlaneDao {
                 plane.getSpeed(),
                 plane.getHeading()
                 ));
-        return 1;
+        return 0;
     }
 
     @Override

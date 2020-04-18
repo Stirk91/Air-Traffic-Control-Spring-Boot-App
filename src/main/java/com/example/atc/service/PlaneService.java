@@ -1,6 +1,7 @@
 package com.example.atc.service;
 
 import com.example.atc.dao.PlaneDao;
+import com.example.atc.dao.PlaneDataAccessService;
 import com.example.atc.model.Plane;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -20,13 +21,12 @@ public class PlaneService {
         this.planeDao = planeDao;
     }
 
-    public int addPlane(Plane plane) {
-        return planeDao.insertPlane(plane);
+    public int addPlane(Plane plane) { return planeDao.insertPlane(plane);
     }
 
     public List<Plane> getAllPlanes() {
-        return planeDao.selectAllPlanes();
-    }
+
+        return planeDao.selectAllPlanes(); }
 
     public Optional<Plane> getPlaneById(UUID id) {
         return planeDao.selectPlaneById(id);
