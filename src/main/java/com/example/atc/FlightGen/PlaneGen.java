@@ -127,14 +127,27 @@ public class PlaneGen extends Plane {
         }
         // COMBINES PREFIX, NUMBER, & POSTFIX
         return prefix + String.valueOf(number) + postfix;
+
     }
 
 
     private String generateState() {
-        String[] states = {"INBOUND", "HOLDING", "FINAL", "EMERGENCY"};
+        String[] states = {"INBOUND", "HOLDING", "EMERGENCY"}; // Other States not auto-generated: "FINAL", "LANDED", "AT GATE", "LEAVING GATE", "DEPARTING", "DEPARTED"
         Random number = new Random();
-        int i = number.nextInt(states.length);
-        return states[i];
+        int random = number.nextInt(100);
+
+
+        if (random > 50) {
+            return states[0];
+        }
+
+        else if (random > 5 ) {
+            return states[1];
+        }
+
+        else {
+            return states[2];
+        }
     }
 
 
