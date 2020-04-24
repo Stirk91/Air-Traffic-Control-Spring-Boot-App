@@ -13,17 +13,20 @@ public class Taxiway {
     @NotBlank
     protected String taxiway_name;
     protected UUID plane_id;
-    protected Set<Gate> gates;
+    //protected Set<Gate> gates;
 
     
     public Taxiway() {}
 
     public Taxiway(@JsonProperty("taxiway_id") int taxiway_id,
                    @JsonProperty("taxiway_name") String taxiway_name,
-                   @JsonProperty("gates") Set<Gate> gates) {
+                   //@JsonProperty("gates") Set<Gate> gates,
+                   @JsonProperty("plane_id") UUID plane_id) {
+
         this.taxiway_id = taxiway_id;
         this.taxiway_name = taxiway_name;
-        this.gates = gates;
+        this.plane_id = plane_id;
+        //this.gates = gates;
     }
 
     public int getTaxiway_id() {
@@ -38,11 +41,7 @@ public class Taxiway {
         return plane_id;
     }
 
-    public Set<Gate> getGates() {
-        return gates;
-    }
+    //public Set<Gate> getGates() { return gates; }
 
-    public void setGates(Set<Gate> gates) {
-        this.gates = gates;
-    }
+    // public void setGates(Set<Gate> gates) { this.gates = gates;  }
 }
