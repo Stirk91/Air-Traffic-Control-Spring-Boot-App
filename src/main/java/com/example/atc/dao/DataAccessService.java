@@ -26,14 +26,14 @@ public class DataAccessService implements Dao {
     // Planes
 
     @Override
-    public int insertPlane(UUID id, Plane plane) {
+    public int insertPlane(Plane plane) {
         final String sql = "INSERT INTO plane " +
                 "(plane_id, tail_number, state, last_action, distance, altitude, speed, heading)" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
         return jdbcTemplate.update(
                 sql,
-                id,
+                plane.getId(),
                 plane.getTail_number(),
                 plane.getState(),
                 plane.getLast_action(),
@@ -97,14 +97,29 @@ public class DataAccessService implements Dao {
 
     @Override
     public int updatePlaneById(UUID id, Plane plane) {
-        return 0; }
+        final String sql = "UPDATE plane " +
+                "SET tail_number =?, state =?, last_action =?, distance =?, altitude =?, speed =?, heading =? " +
+                "WHERE plane_id =?";
+
+        // not implemented
+
+        return 0;
+    }
 
 
     // Gates
 
-    @Override
     public int insertGate(Gate gate) {
-        return 0;
+        final String sql = "INSERT INTO gate " +
+                "(gate_id, gate_name, plane_id)" +
+                "VALUES (?, ?, ?)";
+
+        return jdbcTemplate.update(
+                sql,
+                gate.getGate_id(),
+                gate.getGate_name(),
+                gate.getPlane_id()
+        );
     }
 
     @Override
@@ -162,8 +177,17 @@ public class DataAccessService implements Dao {
     // Runways
 
     @Override
-    public int insertRunway(Runway runway) {
-        return 0;
+    public int insertRunway (Runway runway) {
+        final String sql = "INSERT INTO runway " +
+                "(runway_id, runway_name, plane_id)" +
+                "VALUES (?, ?, ?)";
+
+        return jdbcTemplate.update(
+                sql,
+                runway.getRunway_id(),
+                runway.getRunway_name(),
+                runway.getPlane_id()
+        );
     }
 
     @Override
@@ -205,22 +229,30 @@ public class DataAccessService implements Dao {
     }
 
     @Override
-    public int insertTaxiway(Taxiway taxiway) {
-        return 0;
-    }
+    public int insertTaxiway (Taxiway taxiway) {
+        final String sql = "INSERT INTO taxiway " +
+                "(taxiway_id, taxiway_name, plane_id)" +
+                "VALUES (?, ?, ?)";
 
+        return jdbcTemplate.update(
+                sql,
+                taxiway.getTaxiway_id(),
+                taxiway.getTaxiway_name(),
+                taxiway.getPlane_id()
+        );
+    }
 
     @Override
     public List<Taxiway> selectAllTaxiways() {
-        final String sql = "SELECT * FROM runway";
+        final String sql = "SELECT * FROM taxiway";
 
         List<Taxiway> taxiways = jdbcTemplate.query(
                 // pass sql query as string
                 sql,
                 // row mapper (lambda)
                 (resultSet, i) -> {
-                    int taxiway_id = resultSet.getInt("runway_id");
-                    String taxiway_name = resultSet.getString("runway_name");
+                    int taxiway_id = resultSet.getInt("taxiway_id");
+                    String taxiway_name = resultSet.getString("taxiway_name");
                     UUID plane_id;
                     if (resultSet.getString("plane_id") == null) {
                         plane_id = new UUID(0,0); // assigns nil uuid

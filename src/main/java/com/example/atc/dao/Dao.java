@@ -15,59 +15,34 @@ import java.util.UUID;
 public interface Dao {
 
     // Planes
-
-    int insertPlane(UUID id, Plane plane);
-
-    default int insertPlane(Plane plane) {
-        UUID id = UUID.randomUUID();
-        return insertPlane(id, plane);
-    }
-
+    int insertPlane(Plane plane);
     List<Plane> selectAllPlanes();
-
     Optional<Plane> selectPlaneById(UUID id);
-
     int deletePlaneById(UUID id);
-
     int updatePlaneById(UUID id, Plane plane);
 
 
     // Gates
     int insertGate(Gate gate);
-
     List<Gate> selectAllGates();
-
     Optional<Gate> selectGateById(int gate_id);
-
     int updateGateById(int gate_id, Gate gate);
-
     int deleteGateById(int gate_id);
 
 
     // Runways
-
     int insertRunway(Runway runway);
-
     List<Runway> selectAllRunways();
-
     Optional<Runway> selectRunwayById(int runway_id);
-
     int deleteRunwayById(int runway_id);
-
     int updateRunwayById(int runway_id, Runway newRunway);
 
 
-
     // Taxiways
-
     int insertTaxiway(Taxiway taxiway);
-
     List<Taxiway> selectAllTaxiways();
-
     Optional<Taxiway> selectTaxiwayById(int taxiway_id);
-
     int deleteTaxiwayById(int taxiway_id);
-
     int updateTaxiwayById(int taxiway_id, Taxiway newTaxiway);
 
 

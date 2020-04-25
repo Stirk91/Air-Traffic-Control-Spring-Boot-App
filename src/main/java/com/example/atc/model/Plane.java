@@ -71,5 +71,10 @@ public class Plane {
         return heading;
     }
 
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
 
 }
