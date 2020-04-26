@@ -30,19 +30,15 @@ public class AtcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-
-
-
-
 		// clears all rows
-		final String sql_delete_planes = "DELETE FROM plane;" ;
-		jdbcTemplate.update(sql_delete_planes);
-
 		final String sql_delete_gates = "DELETE FROM gate;" ;
 		jdbcTemplate.update(sql_delete_gates);
 
 		final String sql_delete_runways = "DELETE FROM runway;" ;
 		jdbcTemplate.update(sql_delete_runways);
+
+		final String sql_delete_planes = "DELETE FROM plane;" ;
+		jdbcTemplate.update(sql_delete_planes);
 
 		final String sql_delete_taxiways = "DELETE FROM taxiway;" ;
 		jdbcTemplate.update(sql_delete_taxiways);
@@ -51,7 +47,7 @@ public class AtcApplication implements CommandLineRunner {
 		// insert 100 planes into the database
 		DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
 
-		for (int i = 0; i < 100; i++)
+		for (int i = 0; i < 1; i++)
 		{
 			PlaneGen planeGen = new PlaneGen();
 			dataAccessService.insertPlane(planeGen);
@@ -76,7 +72,6 @@ public class AtcApplication implements CommandLineRunner {
 
 
 		// insert 4 taxiways
-
 		Taxiway taxiway1 = new Taxiway(1, "A", null);
 		Taxiway taxiway2 = new Taxiway(2, "B", null);
 		Taxiway taxiway3 = new Taxiway(3, "C", null);
@@ -89,19 +84,39 @@ public class AtcApplication implements CommandLineRunner {
 
 
 
-/*
+		// tests
+		/*
 		Plane controlPlane = new Plane(new UUID(0,0),
 				"NA1234", "INBOUND", System.currentTimeMillis(),
 				100, 100, 100, 100);
 		dataAccessService.insertPlane(controlPlane);
-
-
-		// update test
+		*/
+		/*
+		// update plane test
 		controlPlane.setState("EMERGENCY");
 		dataAccessService.updatePlaneById(controlPlane.getId(), controlPlane);
+		*/
+
+		// delete plane test
+		//dataAccessService.deletePlaneById(controlPlane.getId());
+
+		/*
+		// gate tests
+		Gate gate = new Gate(0, "TEST", null);
+		dataAccessService.insertGate(gate);
+		gate.setPlane_id(controlPlane.getId());
+		// update test
+		dataAccessService.updateGateById(1, gate);
 */
 
+		// runway update test
+		//runway18L.setPlane_id(controlPlane.getId());
+		//dataAccessService.updateRunwayById(runway18L.getRunway_id(), runway18L);
 
-
+		/*
+		// taxiway update test
+		taxiway1.setPlane_id(controlPlane.getId());
+		dataAccessService.updateTaxiwayById(taxiway1.getTaxiway_id(), taxiway1);
+		 */
 	}
 }

@@ -32,16 +32,16 @@ public class Taxiway {
     public int getTaxiway_id() {
         return taxiway_id;
     }
-
     public String getTaxiway_name() {
         return taxiway_name;
     }
-
     public UUID getPlane_id() {
         return plane_id;
     }
 
-    //public Set<Gate> getGates() { return gates; }
+    public void setPlane_id(UUID plane_id) { this.plane_id = plane_id; }
 
+    //public Set<Gate> getGates() { return gates; }
     // public void setGates(Set<Gate> gates) { this.gates = gates;  }
+
 }

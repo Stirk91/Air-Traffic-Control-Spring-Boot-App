@@ -32,17 +32,17 @@ public class Gate {
     public int getGate_id() {
         return gate_id;
     }
-
     public String getGate_name() {
         return gate_name;
     }
-
     public UUID getPlane_id() {
         return plane_id;
     }
 
-    //public Set<Taxiway> getTaxiways() { return taxiways;  }
+    public void setPlane_id(UUID plane_id) { this.plane_id = plane_id; };
 
+
+    //public Set<Taxiway> getTaxiways() { return taxiways;  }
     //public void setTaxiways(Set<Taxiway> taxiways) { this.taxiways = taxiways; }
 
 }

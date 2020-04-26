@@ -1,3 +1,4 @@
+
 CREATE TABLE Plane (
     plane_id UUID NOT NULL,
     tail_number VARCHAR(10) NOT NULL,

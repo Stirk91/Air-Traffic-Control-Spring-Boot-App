@@ -42,31 +42,24 @@ public class Plane {
     public UUID getId() {
         return id;
     }
-
     public String getTail_number() {
         return tail_number;
     }
-
     public String getState() {
         return state;
     }
-
     public long getLast_action() {
         return last_action;
     }
-
     public int getDistance() {
         return distance;
     }
-
     public int getAltitude() {
         return altitude;
     }
-
     public int getSpeed() {
         return speed;
     }
-
     public int getHeading() {
         return heading;
     }
@@ -74,7 +67,9 @@ public class Plane {
     public void setState(String state) {
         this.state = state;
     }
-
-
-
+    public void setLast_action(long last_action) { this.last_action = last_action; }
+    public void setDistance(int distance) { this.distance = distance; }
+    public void setAltitude(int altitude) { this.altitude = altitude; }
+    public  void setSpeed(int speed) { this.speed = speed; }
+    public void setHeading(int heading) {this.heading = heading; }
 }

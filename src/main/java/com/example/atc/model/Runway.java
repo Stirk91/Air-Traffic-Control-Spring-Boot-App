@@ -25,12 +25,15 @@ public class Runway {
     public int getRunway_id() {
         return runway_id;
     }
-
     public String getRunway_name() {
         return runway_name;
     }
-
     public UUID getPlane_id() {
         return plane_id;
     }
+
+    public void setPlane_id(UUID plane_id) { this.plane_id = plane_id; }
+
+
+
 }
