@@ -1,6 +1,50 @@
 package com.example.atc.service;
 
-public class AtcControl {
+import com.example.atc.FlightGen.PlaneGen;
+import com.example.atc.dao.DataAccessService;
+import com.example.atc.model.Gate;
+import com.example.atc.model.Plane;
+import com.example.atc.model.Runway;
+import com.example.atc.model.Taxiway;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.List;
+
+
+public class AtcControlService implements CommandLineRunner {
+
+    @Autowired
+    JdbcTemplate jdbcTemplate;
+
+    public AtcControlService(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
+
+        List<Plane> atcPlanes = dataAccessService.selectAllPlanes();
+
+
+        // test
+        Plane update_plane = new Plane();
+        update_plane = atcPlanes.get(0);
+        update_plane.setState("EMERGENCY");
+
+        dataAccessService.updatePlaneById(atcPlanes.get(0).getId(), update_plane);
+
+
+
+
+
+
+
+    }
+
 
     // this should be called from the AtcApplication and run in a loop
 
