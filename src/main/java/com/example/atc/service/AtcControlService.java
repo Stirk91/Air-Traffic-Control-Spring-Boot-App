@@ -26,17 +26,28 @@ public class AtcControlService implements CommandLineRunner {
     public void run(String... args) throws Exception {
 
         DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
-
         List<Plane> atcPlanes = dataAccessService.selectAllPlanes();
 
 
+        // example: reducing speed by 10 per turn
+        for (int i = 0; i < atcPlanes.size(); i++) {
+            Plane plane = atcPlanes.get(i);
+
+            int planeSpeed = plane.getSpeed();
+
+            plane.setSpeed(planeSpeed - 10);
+
+            dataAccessService.updatePlaneById(plane.getId(), plane);
+        }
+
+
+        /*
         // test
         Plane update_plane = new Plane();
         update_plane = atcPlanes.get(0);
         update_plane.setState("EMERGENCY");
-
         dataAccessService.updatePlaneById(atcPlanes.get(0).getId(), update_plane);
-
+        */
 
 
 

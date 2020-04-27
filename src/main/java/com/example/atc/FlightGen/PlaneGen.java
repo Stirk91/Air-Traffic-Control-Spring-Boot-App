@@ -32,29 +32,21 @@ public class PlaneGen extends Plane {
     public String getTail_number() {
         return tail_number;
     }
-
     public String getState() {
         return state;
     }
-
     public long getLast_action() {return last_action; }
-
     //public String getFlightNumber() { return flightNumber; }
-
     //public String getPlaneClass() {return planeClass; }
-
     public int getAltitude() {
         return altitude;
     }
-
     public int getDistance() {
         return distance;
     }
-
     public int getSpeed() {
         return speed;
     }
-
     public int getHeading() {
         return heading;
     }
@@ -155,20 +147,17 @@ public class PlaneGen extends Plane {
         return System.currentTimeMillis();
     }
 
-
     private int generateDistance() {
         Random number = new Random();
         int distance = number.nextInt(10) + 5;
         return distance;
     }
 
-
     private int generateSpeed() {
         Random number = new Random();
         int speed = number.nextInt(150) + 100;
         return speed;
     }
-
 
     private int generateHeading() {
         Random number = new Random();
@@ -185,7 +174,6 @@ public class PlaneGen extends Plane {
 */
         return numHeading;
     }
-
 
 }
 

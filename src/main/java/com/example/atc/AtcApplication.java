@@ -20,7 +20,6 @@ public class AtcApplication implements CommandLineRunner {
 	JdbcTemplate jdbcTemplate;
 
 
-
 	@Override
 	public void run(String... args) throws Exception {
 
@@ -29,7 +28,13 @@ public class AtcApplication implements CommandLineRunner {
 		AtcControlService atcControl = new AtcControlService(jdbcTemplate);
 
 		atcInitializationService.run();
-		atcControl.run();
+
+
+		while (true) {
+			atcControl.run();
+			Thread.sleep(5000);
+		}
+
 
 	}
 }
