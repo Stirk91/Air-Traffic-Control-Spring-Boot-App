@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
-public class Plane {
+public class Plane  {
 
     protected UUID id;
     @NotBlank
@@ -72,4 +72,6 @@ public class Plane {
     public void setAltitude(int altitude) { this.altitude = altitude; }
     public  void setSpeed(int speed) { this.speed = speed; }
     public void setHeading(int heading) {this.heading = heading; }
+
 }
+

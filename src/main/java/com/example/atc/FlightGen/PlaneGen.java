@@ -23,12 +23,9 @@ public class PlaneGen extends Plane {
     }
 
 
-    private int generateAltitude() {
-        Random number = new Random();
-        int distance = number.nextInt(100) + 500;
-        return distance;
+    public UUID getId() {
+        return id;
     }
-
     public String getTail_number() {
         return tail_number;
     }
@@ -124,21 +121,16 @@ public class PlaneGen extends Plane {
 
 
     private String generateState() {
-        String[] states = {"INBOUND", "HOLDING", "EMERGENCY"}; // Other States not auto-generated: "FINAL", "LANDED", "AT GATE", "LEAVING GATE", "DEPARTING", "DEPARTED"
+        String[] states = {"INBOUND", "EMERGENCY" }; // Other States not auto-generated: "FINAL", "LANDED", "AT GATE", "LEAVING GATE", "DEPARTING", "DEPARTED"
         Random number = new Random();
         int random = number.nextInt(100);
 
 
-        if (random > 50) {
+        if (random > 5) {
             return states[0];
         }
-
-        else if (random > 5 ) {
-            return states[1];
-        }
-
         else {
-            return states[2];
+            return states[1];
         }
     }
 
@@ -147,21 +139,28 @@ public class PlaneGen extends Plane {
         return System.currentTimeMillis();
     }
 
+
+    private int generateAltitude() {
+        Random number = new Random();
+        int distance = number.nextInt(3000) + 500; // feet
+        return distance;
+    }
+
     private int generateDistance() {
         Random number = new Random();
-        int distance = number.nextInt(10) + 5;
+        int distance = number.nextInt(20 * 5280) + (5 * 5280); // feet
         return distance;
     }
 
     private int generateSpeed() {
         Random number = new Random();
-        int speed = number.nextInt(150) + 100;
+        int speed = number.nextInt(250) + 50; // mph
         return speed;
     }
 
     private int generateHeading() {
         Random number = new Random();
-        int numHeading = number.nextInt(360) + 1;
+        int numHeading = number.nextInt(360) + 1; // deg
 /*      String heading = String.valueOf(numHeading);
 
         // Leading Zeros
