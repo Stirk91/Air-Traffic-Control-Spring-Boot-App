@@ -40,7 +40,7 @@ public class AtcInitializationService implements CommandLineRunner {
         // insert 100 planes into the database
         DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
 
-        for (int i = 0; i < 1; i++)
+        for (int i = 0; i < 100; i++)
         {
             PlaneGen planeGen = new PlaneGen();
             dataAccessService.insertPlane(planeGen);

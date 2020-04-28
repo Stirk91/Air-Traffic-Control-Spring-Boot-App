@@ -126,7 +126,7 @@ public class PlaneGen extends Plane {
         int random = number.nextInt(100);
 
 
-        if (random > 5) {
+        if (random >= 0) {
             return states[0];
         }
         else {
