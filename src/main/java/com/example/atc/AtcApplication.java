@@ -32,7 +32,7 @@ public class AtcApplication implements CommandLineRunner {
 
 		while (true) {
 			atcControl.run();
-			Thread.sleep(250);
+			Thread.sleep(1000);
 		}
 
 
