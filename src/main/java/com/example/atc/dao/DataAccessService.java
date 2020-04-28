@@ -196,6 +196,19 @@ public class DataAccessService implements Dao {
     }
 
     @Override
+    public int updateGateByPlaneId(UUID plane_id) {
+        final String sql = "UPDATE gate " +
+                "SET plane_id =?" +
+                "WHERE plane_id =?";
+
+        return jdbcTemplate.update(
+                sql,
+                null,
+                plane_id
+        );
+    }
+
+    @Override
     public int deleteGateById(int gate_id) {
         return 0;
     }
@@ -279,6 +292,19 @@ public class DataAccessService implements Dao {
     }
 
     @Override
+    public int updateRunwayByPlaneId(UUID plane_id) {
+        final String sql = "UPDATE runway " +
+                "SET plane_id =?" +
+                "WHERE plane_id =?";
+
+        return jdbcTemplate.update(
+                sql,
+                null,
+                plane_id
+        );
+    }
+
+    @Override
     public int insertTaxiway (Taxiway taxiway) {
         final String sql = "INSERT INTO taxiway " +
                 "(taxiway_id, taxiway_name, plane_id)" +
@@ -351,4 +377,18 @@ public class DataAccessService implements Dao {
                 taxiway_id
         );
     }
+
+    @Override
+    public int updateTaxiwayByPlaneId(UUID plane_id) {
+        final String sql = "UPDATE taxiway " +
+                "SET plane_id =?" +
+                "WHERE plane_id =?";
+
+        return jdbcTemplate.update(
+                sql,
+                null,
+                plane_id
+        );
+    }
 }
+
