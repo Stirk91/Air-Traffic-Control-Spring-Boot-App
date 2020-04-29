@@ -29,6 +29,9 @@ public class AtcInitializationService implements CommandLineRunner {
         final String sql_delete_taxiways = "DELETE FROM taxiway CASCADE;" ;
         jdbcTemplate.update(sql_delete_taxiways);
 
+        final String sql_delete_runway_designations = "DELETE FROM Runway_RunwayDesignation CASCADE;" ;
+        jdbcTemplate.update(sql_delete_runway_designations);
+
         final String sql_delete_runways = "DELETE FROM runway CASCADE;" ;
         jdbcTemplate.update(sql_delete_runways);
 
@@ -36,10 +39,12 @@ public class AtcInitializationService implements CommandLineRunner {
         jdbcTemplate.update(sql_delete_planes);
 
 
+
+
         // insert 100 planes into the database
         DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 100; i++)
         {
             PlaneGen planeGen = new PlaneGen();
             dataAccessService.insertPlane(planeGen);
@@ -73,6 +78,37 @@ public class AtcInitializationService implements CommandLineRunner {
         dataAccessService.insertTaxiway(taxiway2);
         dataAccessService.insertTaxiway(taxiway3);
         dataAccessService.insertTaxiway(taxiway4);
+
+        // we don't actually need this or use it in the logic
+        final String insertRunwayDesignations =
+                "INSERT INTO Runway_RunwayDesignation " +
+                "(runway_id, runway_designation)" +
+                "VALUES " +
+                "(1, '18L'), " +
+                "(1, '36R'), " +
+                "(2, '18R'), " +
+                "(2, '36L') ";
+
+                jdbcTemplate.update(insertRunwayDesignations);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         /*
 		// tests
