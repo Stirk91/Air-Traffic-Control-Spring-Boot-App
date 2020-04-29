@@ -1,0 +1,3 @@
+import fetch from 'unfetch';
+
+export const getALlPlanes = () => fetch('http://localhost:8080/v1/plane');
