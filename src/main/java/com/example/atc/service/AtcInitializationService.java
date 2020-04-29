@@ -18,7 +18,6 @@ public class AtcInitializationService implements CommandLineRunner {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
     @Override
     public void run(String... args) throws Exception {
 
@@ -40,7 +39,7 @@ public class AtcInitializationService implements CommandLineRunner {
         // insert 100 planes into the database
         DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
 
-        for (int i = 0; i < 100; i++)
+        for (int i = 0; i < 50; i++)
         {
             PlaneGen planeGen = new PlaneGen();
             dataAccessService.insertPlane(planeGen);
