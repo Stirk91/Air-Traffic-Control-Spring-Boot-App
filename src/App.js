@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import fetch from 'unfetch';
+//import fetch from 'unfetch';
 
 const getAllPlanes = () => fetch('http://localhost:8080/v1/plane');
 const getAllRunways = () => fetch('http://localhost:8080/v1/runway');
 const getAllTaxiways = () => fetch('http://localhost:8080/v1/taxiway');
 const getAllGates = () => fetch('http://localhost:8080/v1/gate');
-
 
 
 
@@ -36,12 +35,10 @@ class App extends Component {
           <h2>Gates</h2>
           <Gates /> 
          </div>
-
       </div>
     );
   }
 }
-
 
 
 
@@ -61,6 +58,12 @@ class Planes extends Component {
     .then(res => res.json()
     .then(planes => {
       console.log(planes);
+      planes.sort(function(a, b) {
+        return a.tail_number.localeCompare(b.tail_number, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        });
+      });
       this.setState({
         planes
       });
@@ -110,6 +113,7 @@ class Runways extends Component {
     getAllRunways()
     .then(res => res.json()
     .then(runways => {
+      runways.sort((a, b) => a.runway_id - b.runway_id);
       console.log(runways);
       this.setState({
         runways
@@ -154,6 +158,7 @@ class Taxiways extends Component {
     getAllTaxiways()
     .then(res => res.json()
     .then(taxiways => {
+      taxiways.sort((a, b) => a.taxiway_id - b.taxiway_id);
       console.log(taxiways);
       this.setState({
         taxiways
@@ -198,6 +203,7 @@ class Gates extends Component {
     getAllGates()
     .then(res => res.json()
     .then(gates => {
+      gates.sort((a, b) => a.gate_id - b.gate_id);
       console.log(gates);
       this.setState({
         gates
