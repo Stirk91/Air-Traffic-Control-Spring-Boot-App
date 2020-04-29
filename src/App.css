@@ -22,6 +22,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  
 }
 
 .App-link {
@@ -36,3 +37,25 @@
     transform: rotate(360deg);
   }
 }
+
+.homepage {
+  display: flex;
+}
+
+.planeColumn {
+  flex: 1;
+  border: 2px solid black;
+}
+.runwayColumn {
+  flex: 1;
+  border: 2px solid black;
+}
+.taxiwayColumn {
+  flex: 1;
+  border: 2px solid black;
+}
+.gateColumn {
+  flex: 1;
+  border: 2px solid black;
+}
+
