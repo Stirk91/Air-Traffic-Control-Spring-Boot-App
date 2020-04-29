@@ -1,0 +1,9 @@
+app:
+  datasource:
+    hikari:
+      minimum-idle: 1
+      maximum-pool-size: 30
+    jdbc-url: jdbc:postgresql://localhost:5432/atc_db
+    username: postgres
+    password: password
+    max-pool-size: 30
