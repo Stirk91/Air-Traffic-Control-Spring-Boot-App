@@ -272,6 +272,24 @@ public class DataAccessService implements Dao {
         return Optional.ofNullable(runway);
     }
 
+    public Runway selectRunwayByPlaneId(UUID plane_id) {
+        final String sql = "SELECT * FROM runway WHERE plane_id = ?";
+
+        Runway runway = jdbcTemplate.queryForObject(
+                // pass sql query as string
+                sql,
+                // new object array with query (id, ...)
+                new Object[]{plane_id},
+                // row mapper (lambda)
+                (resultSet, i) -> {
+                    int runway_id = resultSet.getInt("runway_id");
+                    String runway_name = resultSet.getString("runway_name");
+                    UUID planeId = UUID.fromString(resultSet.getString("plane_id"));
+                    return new Runway(runway_id, runway_name, planeId);
+                });
+        return runway;
+    }
+
 
     @Override
     public int deleteRunwayById(int runway_id) {
@@ -288,6 +306,19 @@ public class DataAccessService implements Dao {
                 sql,
                 runway.getPlane_id(),
                 runway_id
+        );
+    }
+
+    @Override
+    public int updateRunwayByName(String runway_name, UUID plane_id) {
+        final String sql = "UPDATE runway " +
+                "SET plane_id =?" +
+                "WHERE runway_name =?";
+
+        return jdbcTemplate.update(
+                sql,
+                plane_id,
+                runway_name
         );
     }
 

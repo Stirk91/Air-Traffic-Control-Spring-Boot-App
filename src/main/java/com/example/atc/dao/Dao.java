@@ -37,6 +37,8 @@ public interface Dao {
     int deleteRunwayById(int runway_id);
     int updateRunwayById(int runway_id, Runway newRunway);
     int updateRunwayByPlaneId(UUID plane_id);
+    Runway selectRunwayByPlaneId(UUID plane_id);
+    int updateRunwayByName(String runway_name, UUID plane_id);
 
 
     // Taxiways
