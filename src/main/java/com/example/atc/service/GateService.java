@@ -17,7 +17,7 @@ public class GateService {
     private final Dao dao;
 
     @Autowired
-    public GateService(@Qualifier("database") Dao dao) {
+    public GateService(@Qualifier("postgres") Dao dao) {
         this.dao = dao;
     }
 

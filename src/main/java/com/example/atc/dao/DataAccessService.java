@@ -1,19 +1,18 @@
 package com.example.atc.dao;
 
-import com.example.atc.model.Gate;
-import com.example.atc.model.Plane;
-import com.example.atc.model.Runway;
-import com.example.atc.model.Taxiway;
+import com.example.atc.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
 import java.sql.Types;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@Repository("database")
+@Repository("postgres")
 public class DataAccessService implements Dao {
 
     private final JdbcTemplate jdbcTemplate;
@@ -54,15 +53,15 @@ public class DataAccessService implements Dao {
                 sql,
                 // row mapper (lambda)
                 (resultSet, i) -> {
-            UUID id = UUID.fromString(resultSet.getString("plane_id"));
-            String tail_number = resultSet.getString("tail_number");
-            String state = resultSet.getString("state");
-            long last_action = resultSet.getLong("last_action");
-            int distance = resultSet.getInt("distance");
-            int altitude = resultSet.getInt("altitude");
-            int speed = resultSet.getInt("speed");
-            int heading = resultSet.getInt("heading");
-            return new Plane(id, tail_number, state, last_action, distance, altitude, speed, heading);
+                    UUID id = UUID.fromString(resultSet.getString("plane_id"));
+                    String tail_number = resultSet.getString("tail_number");
+                    String state = resultSet.getString("state");
+                    long last_action = resultSet.getLong("last_action");
+                    int distance = resultSet.getInt("distance");
+                    int altitude = resultSet.getInt("altitude");
+                    int speed = resultSet.getInt("speed");
+                    int heading = resultSet.getInt("heading");
+                    return new Plane(id, tail_number, state, last_action, distance, altitude, speed, heading);
                 });
         return planes;
     }
@@ -78,15 +77,15 @@ public class DataAccessService implements Dao {
                 new Object[]{id},
                 // row mapper (lambda)
                 (resultSet, i) -> {
-            UUID planeId = UUID.fromString(resultSet.getString("plane_id"));
-            String tail_number = resultSet.getString("tail_number");
-            String state = resultSet.getString("state");
-            long last_action = resultSet.getLong("last_action");
-            int distance = resultSet.getInt("distance");
-            int altitude = resultSet.getInt("altitude");
-            int speed = resultSet.getInt("speed");
-            int heading = resultSet.getInt("heading");
-            return new Plane(planeId, tail_number, state, last_action, distance, altitude, speed, heading);
+                    UUID planeId = UUID.fromString(resultSet.getString("plane_id"));
+                    String tail_number = resultSet.getString("tail_number");
+                    String state = resultSet.getString("state");
+                    long last_action = resultSet.getLong("last_action");
+                    int distance = resultSet.getInt("distance");
+                    int altitude = resultSet.getInt("altitude");
+                    int speed = resultSet.getInt("speed");
+                    int heading = resultSet.getInt("heading");
+                    return new Plane(planeId, tail_number, state, last_action, distance, altitude, speed, heading);
                 });
         return Optional.ofNullable(plane);
     }
@@ -154,9 +153,8 @@ public class DataAccessService implements Dao {
                     String gate_name = resultSet.getString("gate_name");
                     UUID plane_id;
                     if (resultSet.getString("plane_id") == null) {
-                        plane_id = new UUID(0,0); // assigns nil uuid
-                    }
-                    else {
+                        plane_id = new UUID(0, 0); // assigns nil uuid
+                    } else {
                         plane_id = UUID.fromString(resultSet.getString("plane_id"));
                     }
                     return new Gate(gate_id, gate_name, plane_id);
@@ -217,7 +215,7 @@ public class DataAccessService implements Dao {
     // Runways
 
     @Override
-    public int insertRunway (Runway runway) {
+    public int insertRunway(Runway runway) {
         final String sql = "INSERT INTO runway " +
                 "(runway_id, runway_name, plane_id)" +
                 "VALUES (?, ?, ?)";
@@ -243,9 +241,8 @@ public class DataAccessService implements Dao {
                     String runway_name = resultSet.getString("runway_name");
                     UUID plane_id;
                     if (resultSet.getString("plane_id") == null) {
-                        plane_id = new UUID(0,0); // assigns nil uuid
-                    }
-                    else {
+                        plane_id = new UUID(0, 0); // assigns nil uuid
+                    } else {
                         plane_id = UUID.fromString(resultSet.getString("plane_id"));
                     }
                     return new Runway(runway_id, runway_name, plane_id);
@@ -336,7 +333,7 @@ public class DataAccessService implements Dao {
     }
 
     @Override
-    public int insertTaxiway (Taxiway taxiway) {
+    public int insertTaxiway(Taxiway taxiway) {
         final String sql = "INSERT INTO taxiway " +
                 "(taxiway_id, taxiway_name, plane_id)" +
                 "VALUES (?, ?, ?)";
@@ -362,9 +359,8 @@ public class DataAccessService implements Dao {
                     String taxiway_name = resultSet.getString("taxiway_name");
                     UUID plane_id;
                     if (resultSet.getString("plane_id") == null) {
-                        plane_id = new UUID(0,0); // assigns nil uuid
-                    }
-                    else {
+                        plane_id = new UUID(0, 0); // assigns nil uuid
+                    } else {
                         plane_id = UUID.fromString(resultSet.getString("plane_id"));
                     }
                     return new Taxiway(taxiway_id, taxiway_name, plane_id);
@@ -421,5 +417,91 @@ public class DataAccessService implements Dao {
                 plane_id
         );
     }
-}
 
+    @Override
+    public List<PlaneExtended> selectAllPlanesWithRunwayTaxiwayGate() {
+
+        List<Plane> planes = selectAllPlanes();
+        List<PlaneExtended> planesExtended = new ArrayList<PlaneExtended>();
+
+        PlaneExtended ePlane = new PlaneExtended();
+
+
+
+        for (int i = 0; i < planes.size(); i++) {
+            // convert Planes to ePlanes
+            ePlane.setId(planes.get(i).getId());
+            ePlane.setTail_number(planes.get(i).getTail_number());
+            ePlane.setState(planes.get(i).getState());
+            ePlane.setLast_action(planes.get(i).getLast_action());
+            ePlane.setDistance(planes.get(i).getDistance());
+            ePlane.setAltitude(planes.get(i).getAltitude());
+            ePlane.setSpeed(planes.get(i).getSpeed());
+            ePlane.setHeading(planes.get(i).getHeading());
+
+            String sqlSelectRunway = "SELECT runway_name " +
+                            "FROM runway " +
+                            "WHERE plane_id =? ";
+
+            // have to use string bc jdbc will error if queryForObject returns anything except 1 object
+            List<String> runway_name = jdbcTemplate.query(
+                    sqlSelectRunway,
+                    new Object[]{planes.get(i).getId()},
+                    (resultSet, j) -> {
+                        String runwayName = resultSet.getString("runway_name");
+                        return runwayName;
+                    });
+
+            if (runway_name.size() == 1) {
+                ePlane.setRunway_name(runway_name.get(0));
+            }
+            else {
+                ePlane.setRunway_name("");
+            }
+
+            String sqlSelectTaxiway = "SELECT taxiway_name " +
+                    "FROM taxiway " +
+                    "WHERE plane_id =? ";
+
+            List<String> taxiway_name = jdbcTemplate.query(
+                    sqlSelectTaxiway,
+                    new Object[]{planes.get(i).getId()},
+                    (resultSet, j) -> {
+                        String taxiwayName = resultSet.getString("taxiway_name");
+                        return taxiwayName;
+                    });
+
+            if (taxiway_name.size() == 1) {
+                ePlane.setTaxiway_name(taxiway_name.get(0));
+            }
+            else {
+                ePlane.setTaxiway_name("");
+            }
+
+            String sqlSelectGate = "SELECT gate_name " +
+                    "FROM gate " +
+                    "WHERE plane_id =? ";
+
+            List<String> gate_name = jdbcTemplate.query(
+                    sqlSelectGate,
+                    new Object[]{planes.get(i).getId()},
+                    (resultSet, j) -> {
+                        String gateName = resultSet.getString("gate_name");
+                        return gateName;
+                    });
+
+            if (gate_name.size() == 1) {
+                ePlane.setGate_name(gate_name.get(0));
+            }
+            else {
+                ePlane.setGate_name("");
+            }
+
+
+
+
+            planesExtended.add(ePlane);
+        }
+        return planesExtended;
+    }
+}

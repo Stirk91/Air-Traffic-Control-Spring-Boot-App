@@ -3,6 +3,7 @@ package com.example.atc.service;
 import com.example.atc.dao.Dao;
 import com.example.atc.dao.DataAccessService;
 import com.example.atc.model.Plane;
+import com.example.atc.model.PlaneExtended;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ public class PlaneService {
     private final Dao dao;
 
     @Autowired
-    public PlaneService(@Qualifier("database") Dao dao) {
+    public PlaneService(@Qualifier("postgres") Dao dao) {
         this.dao = dao;
     }
 
@@ -41,4 +42,6 @@ public class PlaneService {
         return dao.updatePlaneById(id, newPlane);
     }
 
+    public List<PlaneExtended> getAllPlanesWithRunwayTaxiwayGate()  {return dao.selectAllPlanesWithRunwayTaxiwayGate();
+    }
 }

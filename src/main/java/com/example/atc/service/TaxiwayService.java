@@ -16,7 +16,7 @@ public class TaxiwayService {
     private final Dao dao;
 
     @Autowired
-    public TaxiwayService(@Qualifier("database") Dao dao) {
+    public TaxiwayService(@Qualifier("postgres") Dao dao) {
         this.dao = dao;
     }
 

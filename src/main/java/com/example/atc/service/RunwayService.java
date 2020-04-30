@@ -17,7 +17,7 @@ public class RunwayService {
     private final Dao dao;
 
     @Autowired
-    public RunwayService(@Qualifier("database") Dao dao) {
+    public RunwayService(@Qualifier("postgres") Dao dao) {
         this.dao = dao;
     }
 

@@ -3,6 +3,7 @@
 package com.example.atc.api;
 
 import com.example.atc.model.Plane;
+import com.example.atc.model.PlaneExtended;
 import com.example.atc.service.PlaneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
@@ -27,7 +28,7 @@ public class PlaneController {
     @PostMapping
     public void addPlane(@Valid @NonNull @RequestBody Plane plane) {
         planeService.addPlane(plane);
-        }
+    }
 
     @GetMapping
     public List<Plane> getAllPlanes() {
@@ -40,6 +41,12 @@ public class PlaneController {
                 .orElse(null);
     }
 
+    @GetMapping(path = "/all")
+    public List<PlaneExtended> getAllPlanesWithRunwayTaxiwayGate() {
+        return planeService.getAllPlanesWithRunwayTaxiwayGate();
+    }
+
+
     @DeleteMapping(path = "{id}")
     public void deletePlaneById(@PathVariable("id") UUID id) {
         planeService.deletePlane(id);
@@ -49,6 +56,4 @@ public class PlaneController {
     public void updatePlaneById(@PathVariable("id") UUID id, @Valid @NonNull @RequestBody Plane planeToUpdate) {
         planeService.updatePlane(id, planeToUpdate);
     }
-
-
 }

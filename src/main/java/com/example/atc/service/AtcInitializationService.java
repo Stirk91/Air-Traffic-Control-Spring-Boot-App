@@ -79,7 +79,7 @@ public class AtcInitializationService implements CommandLineRunner {
         dataAccessService.insertTaxiway(taxiway3);
         dataAccessService.insertTaxiway(taxiway4);
 
-        // we don't actually need this or use it in the logic
+        // we don't actually use this in the logic right now
         final String insertRunwayDesignations =
                 "INSERT INTO Runway_RunwayDesignation " +
                 "(runway_id, runway_designation)" +
@@ -87,7 +87,7 @@ public class AtcInitializationService implements CommandLineRunner {
                 "(1, '18L'), " +
                 "(1, '36R'), " +
                 "(2, '18R'), " +
-                "(2, '36L') ";
+                "(2, '36L')";
 
                 jdbcTemplate.update(insertRunwayDesignations);
 

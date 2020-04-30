@@ -1,9 +1,6 @@
 package com.example.atc.dao;
 
-import com.example.atc.model.Gate;
-import com.example.atc.model.Plane;
-import com.example.atc.model.Runway;
-import com.example.atc.model.Taxiway;
+import com.example.atc.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -49,6 +46,8 @@ public interface Dao {
     int updateTaxiwayById(int taxiway_id, Taxiway newTaxiway);
     int updateTaxiwayByPlaneId(UUID plane_id);
 
+    // Combined
+    List<PlaneExtended> selectAllPlanesWithRunwayTaxiwayGate();
 }
 
 
