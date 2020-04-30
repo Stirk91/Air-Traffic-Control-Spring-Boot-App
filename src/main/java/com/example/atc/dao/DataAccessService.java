@@ -424,11 +424,11 @@ public class DataAccessService implements Dao {
         List<Plane> planes = selectAllPlanes();
         List<PlaneExtended> planesExtended = new ArrayList<PlaneExtended>();
 
-        PlaneExtended ePlane = new PlaneExtended();
-
 
 
         for (int i = 0; i < planes.size(); i++) {
+            PlaneExtended ePlane = new PlaneExtended();
+
             // convert Planes to ePlanes
             ePlane.setId(planes.get(i).getId());
             ePlane.setTail_number(planes.get(i).getTail_number());
