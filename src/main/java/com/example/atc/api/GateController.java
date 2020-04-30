@@ -13,6 +13,7 @@ import java.util.UUID;
 
 //http://localhost:8080/v1/gate
 @RequestMapping("v1/gate")
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class GateController {
 

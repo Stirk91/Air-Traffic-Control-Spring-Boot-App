@@ -15,6 +15,7 @@ import java.util.UUID;
 
 //http://localhost:8080/v1/plane
 @RequestMapping("v1/plane")
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class PlaneController {
 

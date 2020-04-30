@@ -18,6 +18,7 @@ import java.util.UUID;
 
 //http://localhost:8080/v1/taxiway
 @RequestMapping("v1/taxiway")
+@CrossOrigin(maxAge = 3600)
 @RestController
 public class TaxiwayController {
 
