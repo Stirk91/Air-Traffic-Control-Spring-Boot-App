@@ -7,6 +7,7 @@ const getAllPlanes = () => fetch('http://localhost:8080/v1/plane');
 const getAllRunways = () => fetch('http://localhost:8080/v1/runway');
 const getAllTaxiways = () => fetch('http://localhost:8080/v1/taxiway');
 const getAllGates = () => fetch('http://localhost:8080/v1/gate');
+const getAllPlanesWithAll = () => fetch('http://localhost:8080/v1/plane/all');
 
 
 
@@ -14,13 +15,20 @@ class App extends Component {
   render() {
     return (
 
-      <div className="homepage">
+      <div className="top">
 
+      <div class="planeWithAllColumn">
+          <h2>Planes+</h2>
+           <PlanesWithAll /> 
+      </div>
+
+      <div className="dataColumns">
+ 
         <div class="planeColumn">
           <h2>Planes</h2>
            <Planes /> 
         </div>
-        
+
         <div class="runwayColumn"> 
           <h2>Runways</h2>
           <Runways /> 
@@ -34,12 +42,74 @@ class App extends Component {
          <div class="gateColumn"> 
           <h2>Gates</h2>
           <Gates /> 
-         </div>
+         </div> 
+        
+      </div>
+
       </div>
     );
   }
 }
 
+
+
+class PlanesWithAll extends Component {
+  
+  state = {
+    planesWithAll: []
+  }
+
+  componentDidMount () {
+    this.fetchPlanesWithAll();
+    setInterval(this.fetchPlanesWithAll, 1000);
+  }
+
+  fetchPlanesWithAll = () => {
+    getAllPlanesWithAll()
+    .then(res => res.json()
+    .then(planesWithAll => {
+      console.log(planesWithAll);
+      planesWithAll.sort(function(a, b) {
+        return a.tail_number.localeCompare(b.tail_number, undefined, {
+          numeric: true,
+          sensitivity: 'base'
+        });
+      });
+      this.setState({
+        planesWithAll
+      });
+    }));
+  }
+
+  render() {
+
+    const { planesWithAll } = this.state;
+
+    if (planesWithAll && planesWithAll.length) {
+      return planesWithAll.map((planesWithAll, index) => {
+        return (
+
+          <div key={index}>
+            <p>{ "Plane Id: " + planesWithAll.plane_id}</p>
+            <p> { "Tail Number: " + planesWithAll.tail_number } </p>
+            <p> { "State: " + planesWithAll.state } </p>
+            <p> { "Last Action: " + planesWithAll.last_action } </p>
+            <p> { "Distance: " + planesWithAll.distance } </p>
+            <p> { "Altitude: " + planesWithAll.altitude } </p>
+            <p> { "Speed: " + planesWithAll.speed } </p>
+            <p> { "Heading: " + planesWithAll.heading } </p>
+            <p> { "Runway: " + planesWithAll.runway_name } </p>
+            <p> { "Taxiway: " + planesWithAll.taxiway_name } </p>
+            <p> { "Gate: " + planesWithAll.gate_name } </p>
+            <p> { "__________________________" } </p>
+          </div>
+          
+        );
+      })
+    }
+    return <p>No planes found</p>
+  }
+}
 
 
 class Planes extends Component {
@@ -96,6 +166,8 @@ class Planes extends Component {
     return <p>No planes found</p>
   }
 }
+
+
 
 
 class Runways extends Component {

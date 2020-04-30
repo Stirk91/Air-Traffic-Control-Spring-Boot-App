@@ -39,8 +39,14 @@
   }
 }
 
-.homepage {
+.dataColumns {
   display: flex;
+  flex-wrap: wrap;
+}
+
+.planesWithAllColumn {
+
+  flex: 0 0 100%;
 }
 
 .planeColumn {
