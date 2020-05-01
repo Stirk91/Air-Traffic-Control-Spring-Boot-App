@@ -142,14 +142,30 @@ public class PlaneGen extends Plane {
 
     private int generateAltitude() {
         Random number = new Random();
-        int distance = number.nextInt(3000) + 500; // feet
+        int distance = number.nextInt(500) + 3000; // feet
         return distance;
     }
 
     private int generateDistance() {
         Random number = new Random();
-        int distance = number.nextInt(20 * 5280) + (5 * 5280); // feet
-        return distance;
+        int random = number.nextInt(100);
+        int mile = 5280;
+
+        if (random >= 90) {
+            return number.nextInt(20 * mile) + (20 * mile);
+        }
+
+        if (random >= 60) {
+            return number.nextInt(50 * mile) + (20 * mile);
+        }
+
+        if (random >= 30) {
+            return number.nextInt(80 * mile) + (20 * mile);
+        }
+
+        else {
+            return number.nextInt(110 * mile) + (20 * mile);
+        }
     }
 
     private int generateSpeed() {
