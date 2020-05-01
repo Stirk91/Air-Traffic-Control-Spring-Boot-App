@@ -39,30 +39,43 @@
   }
 }
 
+.homepage_title {
+  padding: 20px;
+}
+
+.title_header {
+  color: #1890ff;
+}
+
+.top {
+  padding: 5px;
+}
+
 .dataColumns {
+  line-height: 80%;
   display: flex;
   flex-wrap: wrap;
+  margin: 30px;
 }
 
 .planesWithAllColumn {
-
   flex: 0 0 100%;
 }
 
 .planeColumn {
   flex: 1;
-  border: 2px solid black;
 }
 .runwayColumn {
   flex: 1;
-  border: 2px solid black;
 }
 .taxiwayColumn {
   flex: 1;
-  border: 2px solid black;
 }
 .gateColumn {
   flex: 1;
-  border: 2px solid black;
+}
+
+.json_object {
+  padding-top: 20px;
 }
 
