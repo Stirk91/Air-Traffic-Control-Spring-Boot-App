@@ -14,10 +14,10 @@ public interface Dao {
     // Planes
     int insertPlane(Plane plane);
     List<Plane> selectAllPlanes();
+    List<Plane> selectAllPlanesGlobal();
     Optional<Plane> selectPlaneById(UUID id);
     int deletePlaneById(UUID id);
     int updatePlaneById(UUID id, Plane plane);
-
 
     // Gates
     int insertGate(Gate gate);

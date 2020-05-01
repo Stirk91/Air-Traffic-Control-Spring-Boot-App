@@ -30,6 +30,10 @@ public class PlaneService {
         return dao.selectAllPlanes();
     }
 
+    public List<Plane> getAllPlanesGlobal() {
+        return dao.selectAllPlanesGlobal();
+    }
+
     public Optional<Plane> getPlaneById(UUID id) {
         return dao.selectPlaneById(id);
     }

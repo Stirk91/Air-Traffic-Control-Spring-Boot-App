@@ -46,7 +46,8 @@ public class DataAccessService implements Dao {
 
     @Override
     public List<Plane> selectAllPlanes() {
-        final String sql = "SELECT * FROM plane";
+        final String sql = "SELECT * FROM plane " +
+                 "WHERE plane.distance < 158400"; // only show planes within 30 miles
 
         List<Plane> planes = jdbcTemplate.query(
                 // pass sql query as string
@@ -65,6 +66,29 @@ public class DataAccessService implements Dao {
                 });
         return planes;
     }
+
+    @Override
+    public List<Plane> selectAllPlanesGlobal() {
+        final String sql = "SELECT * FROM plane "; // shows planes outside of the 30 miles radius
+
+        List<Plane> planes = jdbcTemplate.query(
+                // pass sql query as string
+                sql,
+                // row mapper (lambda)
+                (resultSet, i) -> {
+                    UUID id = UUID.fromString(resultSet.getString("plane_id"));
+                    String tail_number = resultSet.getString("tail_number");
+                    String state = resultSet.getString("state");
+                    long last_action = resultSet.getLong("last_action");
+                    int distance = resultSet.getInt("distance");
+                    int altitude = resultSet.getInt("altitude");
+                    int speed = resultSet.getInt("speed");
+                    int heading = resultSet.getInt("heading");
+                    return new Plane(id, tail_number, state, last_action, distance, altitude, speed, heading);
+                });
+        return planes;
+    }
+
 
     @Override
     public Optional<Plane> selectPlaneById(UUID id) {
@@ -443,7 +467,7 @@ public class DataAccessService implements Dao {
                             "FROM runway " +
                             "WHERE plane_id =? ";
 
-            // have to use string bc jdbc will error if queryForObject returns anything except 1 object
+            // have to use string because jdbc will error if queryForObject returns anything except 1 object (including nulls)
             List<String> runway_name = jdbcTemplate.query(
                     sqlSelectRunway,
                     new Object[]{planes.get(i).getId()},
@@ -496,8 +520,6 @@ public class DataAccessService implements Dao {
             else {
                 ePlane.setGate_name("");
             }
-
-
 
 
             planesExtended.add(ePlane);

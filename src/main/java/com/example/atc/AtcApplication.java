@@ -3,12 +3,13 @@ package com.example.atc;
 
 import com.example.atc.service.AtcControlService;
 import com.example.atc.service.AtcInitializationService;
+import com.ulisesbocchio.jasyptspringboot.annotation.EnableEncryptableProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.jdbc.core.JdbcTemplate;
-
+@EnableEncryptableProperties
 @SpringBootApplication
 public class AtcApplication implements CommandLineRunner {
 

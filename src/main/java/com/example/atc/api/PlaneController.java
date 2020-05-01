@@ -42,11 +42,15 @@ public class PlaneController {
                 .orElse(null);
     }
 
-    @GetMapping(path = "/all")
+    @GetMapping(path = "/extended")
     public List<PlaneExtended> getAllPlanesWithRunwayTaxiwayGate() {
         return planeService.getAllPlanesWithRunwayTaxiwayGate();
     }
 
+    @GetMapping(path = "/all")
+    public List<Plane> getAllPlanesGlobal() {
+        return planeService.getAllPlanesGlobal();
+    }
 
     @DeleteMapping(path = "{id}")
     public void deletePlaneById(@PathVariable("id") UUID id) {

@@ -40,11 +40,10 @@ public class AtcInitializationService implements CommandLineRunner {
 
 
 
-
-        // insert 100 planes into the database
+        // insert n planes into the database
         DataAccessService dataAccessService = new DataAccessService(jdbcTemplate);
 
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 100; i++)
         {
             PlaneGen planeGen = new PlaneGen();
             dataAccessService.insertPlane(planeGen);
@@ -90,72 +89,6 @@ public class AtcInitializationService implements CommandLineRunner {
                 "(2, '36L')";
 
                 jdbcTemplate.update(insertRunwayDesignations);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        /*
-		// tests
-
-		Plane controlPlane = new Plane(UUID.randomUUID(),
-				"NA1234", "INBOUND", System.currentTimeMillis(),
-				100, 100, 100, 100);
-		dataAccessService.insertPlane(controlPlane);
-
-		Plane controlPlane2 = new Plane(UUID.randomUUID(),
-				"NA1235", "INBOUND", System.currentTimeMillis(),
-				100, 100, 100, 100);
-		dataAccessService.insertPlane(controlPlane2);
-
-		Plane controlPlane3 = new Plane(UUID.randomUUID(),
-				"N4321", "INBOUND", System.currentTimeMillis(),
-				100, 100, 100, 100);
-		dataAccessService.insertPlane(controlPlane3);
-*/
-
-		/*
-		// update plane test
-		controlPlane.setState("EMERGENCY");
-		dataAccessService.updatePlaneById(controlPlane.getId(), controlPlane);
-		*/
-
-        // delete plane test
-        //dataAccessService.deletePlaneById(controlPlane.getId());
-
-/*
-		// gate tests
-		Gate gate = new Gate(0, "TEST", null);
-		dataAccessService.insertGate(gate);
-		gate.setPlane_id(controlPlane.getId());
-		// update test
-		dataAccessService.updateGateById(gate.getGate_id(), gate);
-
-
-		// runway update test
-		runway18L.setPlane_id(controlPlane2.getId());
-		dataAccessService.updateRunwayById(runway18L.getRunway_id(), runway18L);
-
-
-		// taxiway update test
-		taxiway1.setPlane_id(controlPlane3.getId());
-		dataAccessService.updateTaxiwayById(taxiway1.getTaxiway_id(), taxiway1);
-*/
 
     }
 }

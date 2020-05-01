@@ -152,25 +152,49 @@ public class PlaneGen extends Plane {
         int mile = 5280;
 
         if (random >= 90) {
-            return number.nextInt(20 * mile) + (20 * mile);
+            return number.nextInt(20 * mile) + (10 * mile);
         }
 
-        if (random >= 60) {
-            return number.nextInt(50 * mile) + (20 * mile);
+        else if (random >= 80) {
+            return number.nextInt(50 * mile) + (125 * mile);
         }
 
-        if (random >= 30) {
-            return number.nextInt(80 * mile) + (20 * mile);
+        else if (random >= 70) {
+            return number.nextInt(50 * mile) + (250 * mile);
+        }
+
+        else if (random >= 60) {
+            return number.nextInt(50 * mile) + (375 * mile);
+        }
+
+        else if (random >= 50) {
+            return number.nextInt(50 * mile) + (500 * mile);
+        }
+
+        else if (random >= 40) {
+            return number.nextInt(50 * mile) + (750 * mile);
+        }
+
+        else if (random >= 30) {
+            return number.nextInt(100 * mile) + (1000 * mile);
+        }
+
+        else if (random >= 20) {
+            return number.nextInt(100 * mile) + (1250 * mile);
+        }
+
+        else if (random >= 10) {
+            return number.nextInt(100 * mile) + (1500 * mile);
         }
 
         else {
-            return number.nextInt(110 * mile) + (20 * mile);
+            return number.nextInt(40 * mile) + (910 * mile);
         }
     }
 
     private int generateSpeed() {
         Random number = new Random();
-        int speed = number.nextInt(250) + 50; // mph
+        int speed = number.nextInt(250) + 250; // mph
         return speed;
     }
 
