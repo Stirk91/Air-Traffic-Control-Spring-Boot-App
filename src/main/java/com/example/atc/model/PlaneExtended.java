@@ -40,8 +40,6 @@ public class PlaneExtended extends Plane {
     }
 
 
-
-
     public UUID getId() {
         return id;
     }

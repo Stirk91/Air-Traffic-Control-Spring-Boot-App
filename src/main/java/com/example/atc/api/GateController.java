@@ -25,7 +25,7 @@ public class GateController {
     }
 
     @PostMapping
-    public void addPGate(@Valid @NonNull @RequestBody Gate gate) {
+    public void addGate(@Valid @NonNull @RequestBody Gate gate) {
         gateService.addGate(gate);
     }
 
@@ -42,7 +42,7 @@ public class GateController {
     }
 
     @DeleteMapping(path = "{id}")
-    public void deletePlaneById(@PathVariable("id") int gate_id) {
+    public void deleteGateById(@PathVariable("id") int gate_id) {
         gateService.deleteGate(gate_id);
     }
 

@@ -20,11 +20,12 @@ public class AtcControlService implements CommandLineRunner {
 
     DataAccessService dataAccessService;
 
-    int timeMultiplier = 2; // 1 = 60 secs; 2 = 30 secs
+    int timeMultiplier = 0;
     Random random = new Random();
 
-    public AtcControlService(JdbcTemplate jdbcTemplate) {
+    public AtcControlService(JdbcTemplate jdbcTemplate, int timeMultiplier) {
         this.jdbcTemplate = jdbcTemplate;
+        this.timeMultiplier = timeMultiplier;
     }
 
     // a nil UUID represents a null in the db for plane_id
@@ -115,16 +116,15 @@ public class AtcControlService implements CommandLineRunner {
             Plane plane = atcPlanes.get(i);
 
 
-            if (plane.getState().equals("TAKEOFF") && System.currentTimeMillis() - plane.getLast_action() > 3000) {
+            if (plane.getState().equals("TAKEOFF") && ((System.currentTimeMillis()*timeMultiplier) - plane.getLast_action() > 3000)) {
                 dataAccessService.updateRunwayByPlaneId(plane.getId());
                 plane.setState("OUTBOUND");
                 updateLast_action(plane);
                 System.out.println("Plane " + plane.getTail_number() + " is outbound");
             }
 
-
             else if (plane.getState().equals("TAXIING FROM GATE") && (runwaysAvailable.size() != 0) &&
-                    ( System.currentTimeMillis() - plane.getLast_action() > ( 25000 / timeMultiplier))) {
+                    ( (System.currentTimeMillis()*timeMultiplier) - plane.getLast_action() > ( 25000 / timeMultiplier))) {
                 dataAccessService.updateTaxiwayByPlaneId(plane.getId());
                 runwaysAvailable.get(0)[0].setPlane_id(plane.getId()); // assign plane to first available runway
                 dataAccessService.updateRunwayById(runwaysAvailable.get(0)[0].getRunway_id(), runwaysAvailable.get(0)[0]);
@@ -136,7 +136,7 @@ public class AtcControlService implements CommandLineRunner {
 
             else if (plane.getState().equals("ARRIVED") && (taxiwaysAvailable.size() != 0) &&
                      (num_taxiing_from_gate < 3) && (num_taxiing_to_gate < 3) &&
-                    ( System.currentTimeMillis() - plane.getLast_action() > ( 60000 / timeMultiplier))) {
+                    ( (System.currentTimeMillis()*timeMultiplier) - plane.getLast_action() > ( 60000 / timeMultiplier))) {
                 dataAccessService.updateGateByPlaneId(plane.getId());
                 taxiwaysAvailable.get(0).setPlane_id(plane.getId()); // assign plane to first available taxiway
                 dataAccessService.updateTaxiwayById(taxiwaysAvailable.get(0).getTaxiway_id(), taxiwaysAvailable.get(0));
@@ -148,7 +148,7 @@ public class AtcControlService implements CommandLineRunner {
             }
 
             else if (plane.getState().equals("TAXIING TO GATE") && (gatesAvailable.size() != 0) &&
-                    ( System.currentTimeMillis() - plane.getLast_action() > ( 25000 / timeMultiplier))) {
+                    ( (System.currentTimeMillis()*timeMultiplier) - plane.getLast_action() > ( 25000 / timeMultiplier))) {
                 dataAccessService.updateTaxiwayByPlaneId(plane.getId());
                 gatesAvailable.get(0).setPlane_id(plane.getId()); // assign plane to first available gate
                 dataAccessService.updateGateById(gatesAvailable.get(0).getGate_id(), gatesAvailable.get(0));
@@ -180,7 +180,7 @@ public class AtcControlService implements CommandLineRunner {
                 System.out.println("Plane " + plane.getTail_number() + " switched from inbound to holding");
             }
 
-            else if (plane.getState().equals("INBOUND")  && (System.currentTimeMillis() - plane.getLast_action() > 5000) &&
+            else if (plane.getState().equals("INBOUND")  && ((System.currentTimeMillis()*timeMultiplier) - plane.getLast_action() > 5000) &&
                     (plane.getDistance() < 26400) && (runwaysAvailable.size() != 0) && (gatesAvailable.size() != 0) &&
                     num_taxiing_from_gate < 4) {
                 plane.setState("FINAL");
@@ -350,12 +350,12 @@ public class AtcControlService implements CommandLineRunner {
             }        }
 
         else if (plane.getState().equals("OUTBOUND")) {
-            if ( (System.currentTimeMillis() - plane.getLast_action()) > 5000) {
+            if ( ((System.currentTimeMillis()*timeMultiplier) - plane.getLast_action()) > 5000) {
                 if (plane.getHeading() >= 360) {
                     plane.setHeading(0);
                 }
-             else if ( (System.currentTimeMillis() - plane.getLast_action()) > 5000 &&
-                (System.currentTimeMillis() - plane.getLast_action()) < 10000 )
+             else if ( ((System.currentTimeMillis()*timeMultiplier) - plane.getLast_action()) > 5000 &&
+                ((System.currentTimeMillis()*timeMultiplier) - plane.getLast_action()) < 10000 )
                     plane.setHeading(plane.getHeading() + random.nextInt(10) - random.nextInt(10));
             }
         }
