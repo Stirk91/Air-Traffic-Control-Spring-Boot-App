@@ -39,7 +39,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 class AtcApplicationTests {
 
-
 	@Mock
 	private JdbcTemplate jdbcTemplate;
 
@@ -52,14 +51,10 @@ class AtcApplicationTests {
 	private List<Plane> planesDB = new ArrayList<Plane>();
 	private PlaneGen planeGen = new PlaneGen();
 
-
-
-
 	@BeforeEach
 	public void init() {
 		dataAccessService = new DataAccessService(jdbcTemplate);
 	}
-
 
 	@Test
 	void testInsertThenSelectAllPlanes() {
