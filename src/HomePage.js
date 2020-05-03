@@ -12,7 +12,6 @@ import { Link } from 'react-router-dom';
 
 const getAllPlanesWithAll = () => fetch('http://localhost:8080/v1/plane/extended');
 
-
 class HomePage extends Component {
   render() {
     return (
@@ -26,7 +25,6 @@ class HomePage extends Component {
     );
   }
 }
-
 
 class PlanesWithAll extends Component {
   
