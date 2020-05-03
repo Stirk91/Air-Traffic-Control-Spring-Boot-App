@@ -24,7 +24,7 @@ public class AtcApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		int timeMultiplier = 1; // 1 = 60 secs; 2 = 30 secs
+		int timeMultiplier = 2; // 1 = 60 secs; 2 = 30 secs
 
 		AtcInitializationService atcInitializationService = new AtcInitializationService(jdbcTemplate);
 		AtcControlService atcControl = new AtcControlService(jdbcTemplate, timeMultiplier);

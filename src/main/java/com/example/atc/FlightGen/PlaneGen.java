@@ -156,35 +156,35 @@ public class PlaneGen extends Plane {
         }
 
         else if (random >= 80) {
-            return number.nextInt(50 * mile) + (125 * mile);
+            return number.nextInt(50 * mile) + (175 * mile);
         }
 
         else if (random >= 70) {
-            return number.nextInt(50 * mile) + (250 * mile);
-        }
-
-        else if (random >= 60) {
-            return number.nextInt(50 * mile) + (375 * mile);
-        }
-
-        else if (random >= 50) {
             return number.nextInt(50 * mile) + (500 * mile);
         }
 
-        else if (random >= 40) {
+        else if (random >= 60) {
             return number.nextInt(50 * mile) + (750 * mile);
         }
 
+        else if (random >= 50) {
+            return number.nextInt(50 * mile) + (1000 * mile);
+        }
+
+        else if (random >= 40) {
+            return number.nextInt(50 * mile) + (1250 * mile);
+        }
+
         else if (random >= 30) {
-            return number.nextInt(100 * mile) + (1000 * mile);
+            return number.nextInt(100 * mile) + (1500 * mile);
         }
 
         else if (random >= 20) {
-            return number.nextInt(100 * mile) + (1250 * mile);
+            return number.nextInt(100 * mile) + (1750 * mile);
         }
 
         else if (random >= 10) {
-            return number.nextInt(100 * mile) + (1500 * mile);
+            return number.nextInt(100 * mile) + (2000 * mile);
         }
 
         else {
